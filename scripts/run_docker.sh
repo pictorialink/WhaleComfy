@@ -131,6 +131,7 @@ copy_container_files() {
 
 
 download_models() {
+    source /etc/profile
     echo -e "${YELLOW}$MODEL_DOWNLOAD_START${NC}"
     python3 "$SCRIPT_DIR/download_models.py"
     if [ $? -eq 0 ]; then
