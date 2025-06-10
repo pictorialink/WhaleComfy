@@ -75,11 +75,12 @@ echo '#!/bin/bash' > /usr/local/bin/comfy
 echo "bash \"$clone_dir/WhaleComfy/scripts/run_docker.sh\" \"\$@\"" >> /usr/local/bin/comfy
 
 chmod +x /usr/local/bin/comfy 
-
-comfy init
-comfy start 
 if [ ! -d "$clone_dir/worlflows" ]; then
     cp -r $clone_dir/WhaleComfy/worlflows/ $clone_dir/
 fi
+
+comfy init
+comfy start 
+
 
 echo "$commands"
