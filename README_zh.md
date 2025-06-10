@@ -23,11 +23,13 @@ WhaleComfy/
 
 ##Install
 ### 快速安装 (Ubuntu/Debian/RHEL/CentOS)
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/pictorialink/WhaleComfy/main/linux_install.sh)"
-
+```
 ### 快速安装 (Macos M1/M2/M3)
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/pictorialink/WhaleComfy/main/linux_install.sh)"
-
+```
 #### 使用说明
 - 初始化：`comfy init`
 - 启动服务：`comfy start`
