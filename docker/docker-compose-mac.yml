@@ -1,6 +1,7 @@
 services:
   comfyui:
     image: hqtech/whalecomfy:latest
+    platform: linux/arm64 
     build:
       context: .
       dockerfile: Dockerfile.mac
@@ -10,6 +11,8 @@ services:
       - ${CLONE_DIR}/data/venv:/ComfyUI/venv:rw
       - ${CLONE_DIR}/data/workflows:/ComfyUI/user/default/workflows:rw
     environment:
+      - PYTORCH_ENABLE_MPS_FALLBACK=1
+      - GPU_ENABLED=true
       - PYTHONUNBUFFERED=1
     ports:
       - ${server_port}:8188

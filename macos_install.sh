@@ -57,6 +57,7 @@ fi
 tee ~/.bash_profile >/dev/null <<EOF
 export server_port="$server_port"
 export lang="$lang"
+export CLONE_DIR="$clone_dir"
 EOF
 
 

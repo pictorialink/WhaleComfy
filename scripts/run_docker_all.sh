@@ -39,8 +39,8 @@ if [ "$lang" == "en" ]; then
     RESTORE_START="Starting restore from backup..."
     NO_BACKUP_FOUND="No backup found"
     RESTORE_COMPLETED="Restore completed"
-    USAGE="Usage: $0 {init|build|dlmodels|update|start|stop|restart|status|logs|backup|restore} [--mac]"
-    OPERATION_PROMPT="Please choose an operation, default to download the image: 1) local build, 2) download the image: [1/2]"
+    USAGE="Usage: $0 {init|build|dlmodels|update|start|stop|restart|status|logs|backup|restore}"
+    OPERATION_PROMPT="Please choose an operation, default to download the image: 1) local build, 2) download the image: [1/2]: "
 else
     INIT_START="开始初始化系统..."
     INIT_SUCCESS="系统初始化完成"
@@ -70,8 +70,8 @@ else
     RESTORE_START="开始恢复备份..."
     NO_BACKUP_FOUND="未找到备份"
     RESTORE_COMPLETED="恢复完成"
-    USAGE="用法: $0 {init|build|dlmodels|update|start|stop|restart|status|logs|backup|restore} [--mac]"
-    OPERATION_PROMPT="请选择操作,默认下载远程镜像: 1) 本地构建镜像，2) 下载远程镜像: [1/2]"
+    USAGE="用法: $0 {init|build|dlmodels|update|start|stop|restart|status|logs|backup|restore} "
+    OPERATION_PROMPT="请选择操作,默认下载远程镜像: 1) 本地构建镜像，2) 下载远程镜像: [1/2]: "
 fi
 
 
@@ -79,7 +79,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 DATA_DIR="$CLONE_DIR"
 BACKUP_DIR="$DATA_DIR/backups"
-
+COMPOSE_FILE="docker-compose-mac.yml"
 
 init_system() {
     echo -e "${YELLOW}$INIT_START${NC}"
@@ -137,7 +137,10 @@ copy_container_files() {
 download_models() {
     source /etc/profile
     echo -e "${YELLOW}$MODEL_DOWNLOAD_START${NC}"
-    python3 "$SCRIPT_DIR/download_models.py"
+    cd "$PROJECT_ROOT/docker"
+
+ #   python3 "$SCRIPT_DIR/download_models.py"
+    docker-compose -f docker-compose-models.yml run --rm download_models
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$MODEL_DOWNLOAD_SUCCESS${NC}"
     else
@@ -147,19 +150,10 @@ download_models() {
 }
 
 
-get_compose_file() {
-    if [ "$1" == "--mac" ]; then
-        echo "docker-compose-mac.yml"
-    else
-        echo "docker-compose.yml"
-    fi
-}
-
 
 build() {
     echo -e "${YELLOW}$BUILD_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    COMPOSE_FILE=$(get_compose_file "$2")
     docker-compose -f "$COMPOSE_FILE" build --no-cache
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$BUILD_SUCCESS${NC}"
@@ -171,7 +165,7 @@ build() {
 
 
 init() {
-    init_system "$2"
+#    init_system "$2"
     read -p "$OPERATION_PROMPT" choice
     if [ "$choice" == "1" ]; then
         echo -e "${YELLOW}$LOCAL_BUILD_START${NC}"
@@ -179,7 +173,6 @@ init() {
     else
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
-        COMPOSE_FILE=$(get_compose_file "$2")
         docker-compose -f "$COMPOSE_FILE" pull
     fi
 
@@ -211,7 +204,6 @@ update() {
 start() {
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    COMPOSE_FILE=$(get_compose_file "$2")
     docker-compose -f "$COMPOSE_FILE" up -d
     if [ $? -eq 0 ]; then
         source /etc/profile
@@ -227,7 +219,6 @@ start() {
 stop() {
     echo -e "${YELLOW}$SERVICE_STOP_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    COMPOSE_FILE=$(get_compose_file "$2")
     docker-compose -f "$COMPOSE_FILE" down
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$SERVICE_STOP_SUCCESS${NC}"
@@ -246,14 +237,12 @@ restart() {
 
 check_status() {
     cd "$PROJECT_ROOT/docker"
-    COMPOSE_FILE=$(get_compose_file "$2")
     docker-compose -f "$COMPOSE_FILE" ps
 }
 
 
 view_logs() {
     cd "$PROJECT_ROOT/docker"
-    COMPOSE_FILE=$(get_compose_file "$2")
     docker-compose -f "$COMPOSE_FILE" logs -f
 }
 
