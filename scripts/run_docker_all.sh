@@ -83,7 +83,11 @@ BACKUP_DIR="$DATA_DIR/backups"
 
 init_system() {
     echo -e "${YELLOW}$INIT_START${NC}"
-    bash "$SCRIPT_DIR/system_init.sh"
+    if [ "$1" == "--mac" ]; then
+        bash "$SCRIPT_DIR/mac_init.sh"
+    else
+        bash "$SCRIPT_DIR/system_init.sh"
+    fi
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$INIT_SUCCESS${NC}"
     else
@@ -167,7 +171,7 @@ build() {
 
 
 init() {
-    init_system
+    init_system "$2"
     read -p "$OPERATION_PROMPT" choice
     if [ "$choice" == "1" ]; then
         echo -e "${YELLOW}$LOCAL_BUILD_START${NC}"
@@ -175,7 +179,8 @@ init() {
     else
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
-        docker-compose pull
+        COMPOSE_FILE=$(get_compose_file "$2")
+        docker-compose -f "$COMPOSE_FILE" pull
     fi
 
     copy_container_files
