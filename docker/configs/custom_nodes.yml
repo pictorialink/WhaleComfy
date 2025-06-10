@@ -1,7 +1,7 @@
 custom_nodes:
   - name: ComfyUI-Florence2
     repository: https://github.com/pictorialink/ComfyUI-Florence2.git
-    version: 27714bad54f2c81180392bbcfa56e39c1ad1b991  # 特定的 commit hash
+    version: 27714bad54f2c81180392bbcfa56e39c1ad1b991  # Specific commit hash
     type: Community
     install_path: custom_nodes/ComfyUI-Florence2
     models:
@@ -186,6 +186,22 @@ custom_nodes:
     version: 9a817d82979690b01227a6b5563a028729931ad7
     type: Community
     install_path: custom_nodes/ComfyUI-static-resource
+    models:
+      - url: 
+        path: 
+  - name: ComfyUI-Custom-Node-Config
+    repository: https://github.com/pictorialink/ComfyUI-Custom-Node-Config.git
+    version: a48c2b5326413aaff67c88d7de2cfec57c9040ff
+    type: Community
+    install_path: custom_nodes/ComfyUI-Custom-Node-Config
+    models:
+      - url: 
+        path: 
+    - name: ComfyUI-Text-Translation
+    repository: https://github.com/pictorialink/ComfyUI-Text-Translation.git
+    version: 72b02a6184afe60838030fc28c369029856f6028
+    type: Community
+    install_path: custom_nodes/ComfyUI-Text-Translation
     models:
       - url: 
         path: 
