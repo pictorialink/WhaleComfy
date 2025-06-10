@@ -197,7 +197,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-    - name: ComfyUI-Text-Translation
+  - name: ComfyUI-Text-Translation
     repository: https://github.com/pictorialink/ComfyUI-Text-Translation.git
     version: 72b02a6184afe60838030fc28c369029856f6028
     type: Community
