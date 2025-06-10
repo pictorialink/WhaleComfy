@@ -12,19 +12,19 @@ if [ "$lang_choice" -eq 1 ]; then
     prompt_server_port="请输入服务端口（默认是 8188）： "
     project_not_exist="项目目录不存在"
     clone_success="克隆成功"
-    commands="可用命令: pictorialink init, pictorialink start, pictorialink stop, pictorialink restart, pictorialink dlmodels, pictorialink update, pictorialink logs, pictorialink status"
+    commands="可用命令: comfy init, comfy start, comfy stop, comfy restart, comfy dlmodels, comfy update, comfy logs, comfy status"
 elif [ "$input_choice" -eq 2 ]; then
     export lang="en"
     project_not_exist="Project directory does not exist"
     clone_success="Clone successful"
-    commands="Available commands: pictorialink init, pictorialink start, pictorialink stop, pictorialink restart, pictorialink dlmodels, pictorialink update, pictorialink logs, pictorialink status"
+    commands="Available commands: comfy init, comfy start, comfy stop, comfy restart, comfy dlmodels, comfy update, comfy logs, comfy status"
 else
     echo "输入无效，默认使用英语 / Invalid input, defaulting to English."
     export lang="en"
     prompt_server_port="Please enter the server port (default is 8188): "
     project_not_exist="Project directory does not exist"
     clone_success="Clone successful"
-    commands="Available commands: pictorialink init, pictorialink start, pictorialink stop, pictorialink restart, pictorialink dlmodels, pictorialink update, pictorialink logs, pictorialink status"
+    commands="Available commands: comfy init, comfy start, comfy stop, comfy restart, comfy dlmodels, comfy update, comfy logs, comfy status"
 fi
 
 read -p "$prompt_server_port" server_port
