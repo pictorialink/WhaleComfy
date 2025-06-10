@@ -78,6 +78,8 @@ chmod +x /usr/local/bin/comfy
 
 comfy init
 comfy start 
-
+if [ ! -d "$clone_dir/worlflows" ]; then
+    cp -r $clone_dir/WhaleComfy/worlflows/ $clone_dir/
+fi
 
 echo "$commands"
