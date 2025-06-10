@@ -29,7 +29,7 @@ WhaleComfy/
 ### Quick Installation (Macos M1/M2/M3)
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/pictorialink/WhaleComfy/main/linux_install.sh)"
-
+```
 #### Usage Instructions
 - Initialize: `comfy init`
 - Start service: `comfy start`
