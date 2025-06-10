@@ -1,6 +1,6 @@
 services:
   comfyui:
-    image: hqtech/pictoengine:latest
+    image: hqtech/whalecomfy:latest
     build: .
     volumes:
       - ${CLONE_DIR}/data/models:/ComfyUI/models:rw
