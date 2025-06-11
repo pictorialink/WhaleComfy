@@ -79,7 +79,7 @@ if [ ! -d "$clone_dir/worlflows" ]; then
     cp -r $clone_dir/WhaleComfy/worlflows/ $clone_dir/
 fi
 
-comfy init
+comfy init ||  exit 1
 comfy start 
 
 
