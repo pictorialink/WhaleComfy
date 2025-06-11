@@ -95,13 +95,16 @@ def download_huggingface_repo(url, save_path):
         shutil.rmtree(save_path)
     
     try:
-        # 更新 CA 证书
-        update_ca_certificates()
-        subprocess.run(['git', 'clone', url, save_path], check=True)
+        # 设置环境变量以跳过 SSL 验证
+        env = os.environ.copy()
+        env['GIT_SSL_NO_VERIFY'] = 'true'
+        
+        print(f"Attempting to clone repository: {url}")
+        subprocess.run(['git', 'clone', url, save_path], env=env, check=True)
         
         if check_git_lfs_installed():
             os.chdir(save_path)
-            subprocess.run(['git', 'lfs', 'pull'], check=True)
+            subprocess.run(['git', 'lfs', 'pull'], env=env, check=True)
             os.chdir('../..')
         else:
             print("Warning: git-lfs not detected, skipping large file downloads. Please install git-lfs to download large files.")
@@ -109,6 +112,7 @@ def download_huggingface_repo(url, save_path):
         print(messages[lang]["repository_downloaded"].format(save_path))
         return True
     except subprocess.CalledProcessError as e:
+        print(f"Git clone failed with error: {e}")
         print(messages[lang]["error_downloading"].format(str(e)))
         return False
 
