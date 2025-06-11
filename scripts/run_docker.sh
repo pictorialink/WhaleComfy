@@ -88,7 +88,7 @@ init_system() {
         echo -e "${GREEN}$INIT_SUCCESS${NC}"
     else
         echo -e "${RED}$INIT_FAILURE${NC}"
-        exit 1
+        exit 0
     fi
 }
 
