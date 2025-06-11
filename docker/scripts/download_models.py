@@ -126,14 +126,23 @@ def download_file(url, save_path):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # 更新 CA 证书
-            update_ca_certificates()
-            subprocess.run(['wget', '-c', '-t', '3', '-O', save_path, url], check=True)
+            # 使用 curl 并添加调试信息
+            print(f"Attempting download with curl (attempt {attempt + 1}/{max_retries})")
+            result = subprocess.run(
+                ['curl', '-L', '-C', '-', '--retry', '3', '--retry-delay', '2', 
+                 '--insecure', '-v', '-o', save_path, url],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            print("Download successful!")
             print(messages[lang]["file_downloaded"].format(save_path))
             return True
         except subprocess.CalledProcessError as e:
+            print(f"Download failed with error: {e}")
+            print(f"Error output: {e.stderr}")
             if attempt < max_retries - 1:
-                print(f"Download failed, retrying attempt {attempt + 2}...")
+                print(f"Retrying download (attempt {attempt + 2}/{max_retries})...")
                 continue
             print(messages[lang]["error_downloading"].format(str(e)))
             return False
