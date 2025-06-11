@@ -7,7 +7,9 @@ WORKDIR /ComfyUI
 RUN apt-get update && apt-get install gcc  python3-venv build-essential git git-lfs libgl1 libgl1-mesa-glx ffmpeg libglib2.0-0 libsm6 libxrender1 libxext6 wget -y
 
 
-
+RUN git config --global http.lowSpeedLimit 0 && git config --global http.lowSpeedTime 999999 &&git config --global http.postBuffer 1048576000
+RUN git config --global http.version HTTP/1.1
+RUN git config --global http.sslVerify false
 
 RUN git clone --branch v0.3.34  https://github.com/comfyanonymous/ComfyUI.git .
 RUN python3 -m venv venv 
