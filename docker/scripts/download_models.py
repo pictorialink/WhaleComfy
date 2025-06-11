@@ -60,10 +60,18 @@ def check_git_lfs_installed():
 def update_ca_certificates():
     """Update CA certificates"""
     try:
-        subprocess.run(['update-ca-certificates'], check=True)
+        # 尝试使用 update-ca-certificates
+        subprocess.run(['update-ca-certificates'], capture_output=True, check=True)
         return True
     except:
-        return False
+        try:
+            # 如果 update-ca-certificates 不可用，尝试使用 apt-get
+            subprocess.run(['apt-get', 'update'], capture_output=True, check=True)
+            subprocess.run(['apt-get', 'install', '-y', 'ca-certificates'], capture_output=True, check=True)
+            return True
+        except:
+            print("Warning: Failed to update CA certificates")
+            return False
 
 def check_huggingface_accessible():
     """Check if huggingface.co is accessible"""
@@ -99,11 +107,16 @@ def download_huggingface_repo(url, save_path):
         env = os.environ.copy()
         env['GIT_SSL_NO_VERIFY'] = 'true'
         
+        # 更新证书
+        update_ca_certificates()
+        
         print(f"Attempting to clone repository: {url}")
         subprocess.run(['git', 'clone', url, save_path], env=env, check=True)
         
         if check_git_lfs_installed():
             os.chdir(save_path)
+            # 再次更新证书
+            update_ca_certificates()
             subprocess.run(['git', 'lfs', 'pull'], env=env, check=True)
             os.chdir('../..')
         else:
@@ -130,11 +143,11 @@ def download_file(url, save_path):
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            # 使用 curl 并添加调试信息
-            print(f"Attempting download with curl (attempt {attempt + 1}/{max_retries})")
+            # 更新证书
+            update_ca_certificates()
+            print(f"Attempting download with wget (attempt {attempt + 1}/{max_retries})")
             result = subprocess.run(
-                ['curl', '-L', '-C', '-', '--retry', '3', '--retry-delay', '2', 
-                 '--insecure', '-v', '-o', save_path, url],
+                ['wget', '--no-check-certificate', '-c', '-t', '3', '-O', save_path, url],
                 capture_output=True,
                 text=True,
                 check=True
