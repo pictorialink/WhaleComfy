@@ -94,7 +94,7 @@ init_system() {
 
 
 get_image_name() {
-    IMAGE_NAME=$(grep 'image:'|grep -v 'comfyui' "$PROJECT_ROOT/docker/docker-compose.yml" | awk '{print $2}')
+    IMAGE_NAME=$(grep -A 1 "comfyui:" docker/docker-compose.yml | grep "image:" | awk '{print $2}')
     IMAGE_NAME=$(echo "$IMAGE_NAME" | tr -d '\r')
     echo "$IMAGE_NAME"
 }
