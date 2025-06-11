@@ -67,7 +67,7 @@ def install_node(node: Dict) -> None:
     requirements_file = full_path / "requirements.txt"
     if requirements_file.exists():
         print("Installing dependencies...")
-        run_command([str(VENV_DIR / "pip"), "install", "-r", str(requirements_file)])
+        run_command([str(VENV_DIR / "pip"), "install", "-r", str(requirements_file), "--timeout", "600"])
     
     # Check for additional installation scripts
     install_script = full_path / "install.py"
@@ -105,7 +105,7 @@ def main():
             print(f"Found additional node: {node_name}, installing dependencies")
             requirements_file = node_dir / "requirements.txt"
             if requirements_file.exists():
-                run_command([str(VENV_DIR / "pip"), "install", "-r", str(requirements_file)])
+                run_command([str(VENV_DIR / "pip"), "install", "-r", str(requirements_file), "--timeout", "600"])
     
     print(f"\n{Colors.GREEN}Node installation and dependency check completed{Colors.NC}")
 

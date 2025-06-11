@@ -14,7 +14,7 @@ RUN python3 -m venv venv
 ENV PATH="/ComfyUI/venv/bin/:${PATH}"
 
 
-RUN /ComfyUI/venv/bin/pip install -r requirements.txt
+RUN /ComfyUI/venv/bin/pip install --default-timeout=600 -r requirements.txt
 
 
 COPY scripts/ /app/scripts/
