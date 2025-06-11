@@ -136,7 +136,7 @@ download_models() {
     cd "$PROJECT_ROOT/docker"
 
  #   python3 "$SCRIPT_DIR/download_models.py"
-    docker-compose -f docker-compose-models.yml run --rm download_models
+    docker-compose  run --rm download_models
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$MODEL_DOWNLOAD_SUCCESS${NC}"
     else
@@ -149,7 +149,7 @@ download_models() {
 build() {
     echo -e "${YELLOW}$BUILD_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    docker-compose build --no-cache
+    docker-compose build --no-cache comfyui
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$BUILD_SUCCESS${NC}"
     else
@@ -168,7 +168,7 @@ init() {
     else
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
-        docker-compose pull
+        docker-compose pull comfyui
     fi
 
     copy_container_files
@@ -199,7 +199,7 @@ update() {
 start() {
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    docker-compose up -d
+    docker-compose up -d comfyui
     if [ $? -eq 0 ]; then
         source /etc/profile
         server_url=`ip -br addr show | awk -v port="${server_port}" '$2 == "UP" && !/lo|docker|virbr|veth|br-|tun|tap/ {split($3, a, "/"); print "http://" a[1] ":" port}' || echo "http://127.0.0.1:${server_port}"`
@@ -214,7 +214,7 @@ start() {
 stop() {
     echo -e "${YELLOW}$SERVICE_STOP_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    docker-compose down
+    docker-compose down comfyui
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$SERVICE_STOP_SUCCESS${NC}"
     else
@@ -232,13 +232,13 @@ restart() {
 
 check_status() {
     cd "$PROJECT_ROOT/docker"
-    docker-compose ps
+    docker-compose ps comfyui
 }
 
 
 view_logs() {
     cd "$PROJECT_ROOT/docker"
-    docker-compose logs -f
+    docker-compose logs -f comfyui
 }
 
 

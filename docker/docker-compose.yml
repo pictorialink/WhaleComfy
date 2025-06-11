@@ -20,3 +20,23 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+  download_models:
+    image: hqtech/whalecomfy:latest
+    volumes:
+      - ${CLONE_DIR}/models:/ComfyUI/models:rw
+      - ${CLONE_DIR}/custom_nodes:/ComfyUI/custom_nodes:rw
+      - ${CLONE_DIR}/venv:/ComfyUI/venv:rw
+      - ${CLONE_DIR}/workflows:/ComfyUI/user/default/workflows:rw
+    entrypoint: /ComfyUI/venv/bin/python /app/download_models.py /app/configs/custom_nodes.yml
+    working_dir: /ComfyUI
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    stop_signal: SIGKILL
+      #    detach: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
