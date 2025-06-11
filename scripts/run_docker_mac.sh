@@ -83,11 +83,7 @@ BACKUP_DIR="$DATA_DIR/backups"
 
 init_system() {
     echo -e "${YELLOW}$INIT_START${NC}"
-    if [ "$1" == "--mac" ]; then
-        bash "$SCRIPT_DIR/mac_init.sh"
-    else
-        bash "$SCRIPT_DIR/system_init.sh"
-    fi
+    bash "$SCRIPT_DIR/mac_init.sh"
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$INIT_SUCCESS${NC}"
     else
@@ -168,7 +164,7 @@ init() {
     read -p "$OPERATION_PROMPT" choice
     if [ "$choice" == "1" ]; then
         echo -e "${YELLOW}$LOCAL_BUILD_START${NC}"
-        build "$2"
+        build
     else
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
