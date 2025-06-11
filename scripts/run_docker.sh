@@ -133,7 +133,10 @@ copy_container_files() {
 download_models() {
     source /etc/profile
     echo -e "${YELLOW}$MODEL_DOWNLOAD_START${NC}"
-    python3 "$SCRIPT_DIR/download_models.py"
+    cd "$PROJECT_ROOT/docker"
+
+ #   python3 "$SCRIPT_DIR/download_models.py"
+    docker-compose -f docker-compose-models.yml run --rm download_models
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$MODEL_DOWNLOAD_SUCCESS${NC}"
     else
