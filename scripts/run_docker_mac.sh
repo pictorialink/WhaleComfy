@@ -110,7 +110,9 @@ copy_container_files() {
     
     docker create --name temp_container "$IMAGE_NAME"
     
-    mkdir -p "$DATA_DIR"
+    if [ ! -d "$DATA_DIR" ]; then
+        mkdir -p "$DATA_DIR"
+    fi
     
     
     docker cp temp_container:/ComfyUI/venv "$DATA_DIR/"
