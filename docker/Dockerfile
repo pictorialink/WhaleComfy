@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 WORKDIR /ComfyUI
 
 
-RUN apt-get update && apt-get install gcc  python3-venv build-essential git  libgl1 libgl1-mesa-glx ffmpeg libglib2.0-0 libsm6 libxrender1 libxext6 wget -y
+RUN apt-get update && apt-get install gcc  python3-venv build-essential git git-lfs libgl1 libgl1-mesa-glx ffmpeg libglib2.0-0 libsm6 libxrender1 libxext6 wget -y
 
 
 
