@@ -57,6 +57,14 @@ def check_git_lfs_installed():
     except:
         return False
 
+def update_ca_certificates():
+    """Update CA certificates"""
+    try:
+        subprocess.run(['update-ca-certificates'], check=True)
+        return True
+    except:
+        return False
+
 def check_huggingface_accessible():
     """Check if huggingface.co is accessible"""
     try:
@@ -87,6 +95,8 @@ def download_huggingface_repo(url, save_path):
         shutil.rmtree(save_path)
     
     try:
+        # 更新 CA 证书
+        update_ca_certificates()
         subprocess.run(['git', 'clone', url, save_path], check=True)
         
         if check_git_lfs_installed():
@@ -116,6 +126,8 @@ def download_file(url, save_path):
     max_retries = 3
     for attempt in range(max_retries):
         try:
+            # 更新 CA 证书
+            update_ca_certificates()
             subprocess.run(['wget', '-c', '-t', '3', '-O', save_path, url], check=True)
             print(messages[lang]["file_downloaded"].format(save_path))
             return True
@@ -133,7 +145,7 @@ def is_single_file(path):
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, '../docker/configs/custom_nodes.yml')
+    config_path = '/app/configs/custom_nodes.yml'
     
     if not os.path.exists(config_path):
         print(messages[lang]["error_config_not_exist"].format(config_path))
