@@ -40,3 +40,26 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+  comfyui-mac:
+    image: hqtech/whalecomfy-mac:latest
+    platform: linux/arm64 
+    build:
+      context: .
+      dockerfile: Dockerfile.mac
+    volumes:
+      - ${CLONE_DIR}/models:/ComfyUI/models:rw
+      - ${CLONE_DIR}/custom_nodes:/ComfyUI/custom_nodes:rw
+      - ${CLONE_DIR}/venv:/ComfyUI/venv:rw
+      - ${CLONE_DIR}/workflows:/ComfyUI/user/default/workflows:rw
+    environment:
+      - PYTORCH_ENABLE_MPS_FALLBACK=1
+      - GPU_ENABLED=true
+      - PYTHONUNBUFFERED=1
+    ports:
+      - ${server_port}:8188
+    stop_signal: SIGKILL
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G

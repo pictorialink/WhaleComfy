@@ -79,7 +79,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 DATA_DIR="$CLONE_DIR"
 BACKUP_DIR="$DATA_DIR/backups"
-COMPOSE_FILE="docker-compose-mac.yml"
+
 
 init_system() {
     echo -e "${YELLOW}$INIT_START${NC}"
@@ -98,7 +98,7 @@ init_system() {
 
 
 get_image_name() {
-    IMAGE_NAME=$(grep 'image:' "$PROJECT_ROOT/docker/docker-compose.yml" | awk '{print $2}')
+    IMAGE_NAME=$(grep -A 1 "comfyui-mac:" $PROJECT_ROOT/docker/docker-compose.yml | grep "image:" | awk '{print $2}')
     IMAGE_NAME=$(echo "$IMAGE_NAME" | tr -d '\r')
     echo "$IMAGE_NAME"
 }
@@ -139,8 +139,7 @@ download_models() {
     echo -e "${YELLOW}$MODEL_DOWNLOAD_START${NC}"
     cd "$PROJECT_ROOT/docker"
 
- #   python3 "$SCRIPT_DIR/download_models.py"
-    docker-compose -f docker-compose-models.yml run --rm download_models
+    docker-compose run --rm download_models
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$MODEL_DOWNLOAD_SUCCESS${NC}"
     else
@@ -154,7 +153,7 @@ download_models() {
 build() {
     echo -e "${YELLOW}$BUILD_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    docker-compose -f "$COMPOSE_FILE" build --no-cache
+    docker-compose build --no-cache comfyui-mac
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$BUILD_SUCCESS${NC}"
     else
@@ -165,7 +164,7 @@ build() {
 
 
 init() {
-#    init_system "$2"
+#    init_system
     read -p "$OPERATION_PROMPT" choice
     if [ "$choice" == "1" ]; then
         echo -e "${YELLOW}$LOCAL_BUILD_START${NC}"
@@ -173,7 +172,7 @@ init() {
     else
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
-        docker-compose -f "$COMPOSE_FILE" pull
+        docker-compose pull comfyui-mac
     fi
 
     copy_container_files
@@ -204,7 +203,7 @@ update() {
 start() {
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    docker-compose -f "$COMPOSE_FILE" up -d
+    docker-compose up -d comfyui-mac
     if [ $? -eq 0 ]; then
         source /etc/profile
         server_url=`ip -br addr show | awk -v port="${server_port}" '$2 == "UP" && !/lo|docker|virbr|veth|br-|tun|tap/ {split($3, a, "/"); print "http://" a[1] ":" port}' || echo "http://127.0.0.1:${server_port}"`
@@ -219,7 +218,7 @@ start() {
 stop() {
     echo -e "${YELLOW}$SERVICE_STOP_START${NC}"
     cd "$PROJECT_ROOT/docker"
-    docker-compose -f "$COMPOSE_FILE" down
+    docker-compose down comfyui-mac
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$SERVICE_STOP_SUCCESS${NC}"
     else
@@ -230,20 +229,20 @@ stop() {
 
 
 restart() {
-    stop "$2"
-    start "$2"
+    stop
+    start
 }
 
 
 check_status() {
     cd "$PROJECT_ROOT/docker"
-    docker-compose -f "$COMPOSE_FILE" ps
+    docker-compose ps comfyui-mac
 }
 
 
 view_logs() {
     cd "$PROJECT_ROOT/docker"
-    docker-compose -f "$COMPOSE_FILE" logs -f
+    docker-compose logs -f comfyui-mac
 }
 
 
@@ -297,10 +296,10 @@ restore() {
 main() {
     case "$1" in
         "init")
-            init "$2"
+            init
             ;;
         "build")
-            build "$2"
+            build
             ;;
         "dlmodels")
             download_models
@@ -309,19 +308,19 @@ main() {
             update
             ;;
         "start")
-            start "$2"
+            start
             ;;
         "stop")
-            stop "$2"
+            stop
             ;;
         "restart")
-            restart "$2"
+            restart
             ;;
         "status")
-            check_status "$2"
+            check_status
             ;;
         "logs")
-            view_logs "$2"
+            view_logs
             ;;
         "backup")
             backup

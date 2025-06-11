@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 WORKDIR /ComfyUI
 
 # 安装系统依赖
-RUN apt-get update && apt-get install gcc python3-venv build-essential git libgl1 libgl1-mesa-glx cmake ffmpeg libglib2.0-0 libsm6 libxrender1 libxext6 wget freetype2-dev pkg-config libpng-dev -y
+RUN apt-get update && apt-get install gcc python3-venv build-essential git git-lfs libgl1 libgl1-mesa-glx cmake ffmpeg libglib2.0-0 libsm6 libxrender1 libxext6 wget freetype2-dev pkg-config libpng-dev -y
 
 # 克隆 ComfyUI 仓库
 RUN git clone --branch v0.3.34 https://github.com/comfyanonymous/ComfyUI.git .
