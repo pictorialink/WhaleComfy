@@ -34,7 +34,7 @@ COPY ../configs/ /app/configs/
 RUN chmod +x /app/scripts/entrypoint.sh
 
 # 安装自定义节点
-RUN /ComfyUI/venv/bin/python /app/scripts/install_nodes.py
+#RUN /ComfyUI/venv/bin/python /app/scripts/install_nodes.py
 
 EXPOSE 8188
 

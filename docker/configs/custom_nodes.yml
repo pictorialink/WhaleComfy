@@ -37,7 +37,7 @@ custom_nodes:
         path: custom_nodes/ComfyUI-controlnet_aux/ckpts/yzd-v/DWPose/yolox_l.onnx
       - url: https://huggingface.co/hr16/DWPose-TorchScript-BatchSize5/resolve/main/dw-ll_ucoco_384_bs5.torchscript.pt
         path: custom_nodes/ComfyUI-controlnet_aux/ckpts/hr16/DWPose-TorchScript-BatchSize5/dw-ll_ucoco_384_bs5.torchscript.pt
-  - name: ComfyUI-Advanced-ControlNet
+  - name: ComfyUI-Advanced-ControlNet #no requirements.txt
     repository: https://github.com/pictorialink/ComfyUI-Advanced-ControlNet.git
     version: da254b700db562a22e03358b933c85a9a3392540 # Specific commit hash
     type: Community
@@ -77,7 +77,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: comfyui-inpaint-nodes
+  - name: comfyui-inpaint-nodes #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-inpaint-nodes.git
     version: 20092c37b9dfc481ca44e8577a9d4a9d426c0e56
     type: Community
@@ -93,7 +93,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: ComfyUI-masquerade-nodes
+  - name: ComfyUI-masquerade-nodes #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-masquerade-nodes.git
     version: 432cb4d146a391b387a0cd25ace824328b5b61cf
     type: Community
@@ -109,7 +109,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: Comfyui_cgem156
+  - name: Comfyui_cgem156 #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-cgem156.git
     version: 7b85305c67af9117cddd335ff8b17e4e286080ef
     type: Community
@@ -125,7 +125,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: ComfyUI-Universal-Styler
+  - name: ComfyUI-Universal-Styler #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-Universal-Styler.git
     version: ed4a80231af20a81edc74f93b3c4e3de5e6f180c
     type: Community
@@ -165,7 +165,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: ComfyUI_Custom_Nodes_AlekPet
+  - name: ComfyUI_Custom_Nodes_AlekPet #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-Custom_Nodes_AlekPet.git
     version: 8562214047e53f7281b8bb6f6fc9785ae542d23d
     type: Community
@@ -181,7 +181,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: comfyui-static-resource
+  - name: comfyui-static-resource #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-static-resource.git
     version: 9a817d82979690b01227a6b5563a028729931ad7
     type: Community
@@ -189,7 +189,7 @@ custom_nodes:
     models:
       - url: 
         path: 
-  - name: ComfyUI-Custom-Node-Config
+  - name: ComfyUI-Custom-Node-Config #no req.txt
     repository: https://github.com/pictorialink/ComfyUI-Custom-Node-Config.git
     version: a48c2b5326413aaff67c88d7de2cfec57c9040ff
     type: Community
