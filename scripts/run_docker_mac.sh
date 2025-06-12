@@ -204,7 +204,7 @@ start() {
     docker-compose up -d comfyui-mac
     if [ $? -eq 0 ]; then
         source /etc/profile
-        server_url=`ip -br addr show | awk -v port="${server_port}" '$2 == "UP" && !/lo|docker|virbr|veth|br-|tun|tap/ {split($3, a, "/"); print "http://" a[1] ":" port}' || echo "http://127.0.0.1:${server_port}"`
+        server_url=`echo "http://127.0.0.1:${server_port}"`
         echo -e "${GREEN}$SERVICE_START_SUCCESS${NC} $server_url"
     else
         echo -e "${RED}$SERVICE_START_FAILURE${NC}"
