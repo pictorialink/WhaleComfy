@@ -6,7 +6,6 @@ from urllib.parse import urlparse
 import socket
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 lang = os.getenv("lang", "en") 
 base_dir = os.getenv("CLONE_DIR", "/ComfyUI")
 
