@@ -17,7 +17,7 @@ custom_nodes:
         path: models/prompt_generator/MiniCPM-V-2_6-int4
   - name: comfyui-mixlab-nodes
     repository: https://github.com/pictorialink/ComfyUI-mixlab-nodes.git
-    version: 63f29b549cba04173105a4b227b928a467e6ba6d
+    version: 1b9020d3129db24937c586d59afd1c141e50b569
     type: Community
     install_path: custom_nodes/ComfyUI-mixlab-nodes
     models:
