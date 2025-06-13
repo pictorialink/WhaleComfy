@@ -1,4 +1,12 @@
 custom_nodes:
+  - name: ComfyUI-Manager
+    repository: https://github.com/pictorialink/ComfyUI-Manager.git
+    version: 89e38281387d342fda40d4ba43f9370b4750afe4  # Specific commit hash
+    type: Community
+    install_path: custom_nodes/ComfyUI-Florence2
+    models:
+      - url:
+        path:
   - name: ComfyUI-Florence2
     repository: https://github.com/pictorialink/ComfyUI-Florence2.git
     version: 27714bad54f2c81180392bbcfa56e39c1ad1b991  # Specific commit hash
