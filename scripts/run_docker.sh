@@ -138,7 +138,7 @@ download_models() {
     cd "$PROJECT_ROOT/docker"
 
  #   python3 "$SCRIPT_DIR/download_models.py"
-    docker-compose  run --rm download_models
+    docker-compose  run --rm download_models_linux
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$MODEL_DOWNLOAD_SUCCESS${NC}"
     else
@@ -199,6 +199,7 @@ update() {
 
 
 start() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose up -d comfyui

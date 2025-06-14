@@ -29,7 +29,7 @@ fi
 
 read -p "$prompt_server_port" server_port
 server_port=${server_port:-8188}
-export server_port="$server_port" lang="$lang"
+export server_port="$server_port" lang="$lang" CLONE_DIR="$HOME"
 
 if [ -d "$HOME/WhaleComfy" ]; then
     cd "$HOME/WhaleComfy" || { echo "$project_not_exist"; exit 1; }
@@ -57,15 +57,16 @@ fi
 tee ~/.bash_profile >/dev/null <<EOF
 export server_port="$server_port"
 export lang="$lang"
-export CLONE_DIR="$clone_dir"
+export CLONE_DIR="$HOME"
 EOF
-
-
+source ~/.bash_profile
 echo '#!/bin/bash' | sudo tee "$BIN_DIR/comfy"
-echo "bash \"$HOME/WhaleComfy/scripts/run_mac.sh\" \"\$@\"" | sudo tee -a "$BIN_DIR/comfy"
-sudo chmod +x "$BIN_DIR/comfy"
+echo "bash \"$HOME/WhaleComfy/scripts/run_docker_mac.sh\" \"\$@\"" | sudo tee -a "$BIN_DIR/comfy"
 
-sudo chmod +x $BIN_DIR/comfy && source ~/.zshrc
+if [ ! -d "$CLONE_DIR/workflows" ]; then
+    sudo cp -r $CLONE_DIR/WhaleComfy/workflows/ $CLONE_DIR/
+fi
+sudo chmod +x $BIN_DIR/comfy && source /etc/profile
 comfy init
 comfy start 
 

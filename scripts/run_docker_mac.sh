@@ -133,11 +133,12 @@ copy_container_files() {
 
 
 download_models() {
+    source ~/.bash_profile
     source /etc/profile
     echo -e "${YELLOW}$MODEL_DOWNLOAD_START${NC}"
     cd "$PROJECT_ROOT/docker"
 
-    docker-compose run --rm download_models
+    docker-compose run --rm download_models_mac
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$MODEL_DOWNLOAD_SUCCESS${NC}"
     else
@@ -149,6 +150,7 @@ download_models() {
 
 
 build() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$BUILD_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose build --no-cache comfyui-mac
@@ -163,6 +165,7 @@ build() {
 
 init() {
 #    init_system
+    source ~/.bash_profile
     read -p "$OPERATION_PROMPT" choice
     if [ "$choice" == "1" ]; then
         echo -e "${YELLOW}$LOCAL_BUILD_START${NC}"
@@ -179,6 +182,7 @@ init() {
 
 
 update() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$PROJECT_UPDATE_START${NC}"
     
 
@@ -199,6 +203,7 @@ update() {
 
 
 start() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose up -d comfyui-mac
@@ -214,6 +219,7 @@ start() {
 
 
 stop() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$SERVICE_STOP_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose down comfyui-mac
@@ -233,18 +239,21 @@ restart() {
 
 
 check_status() {
+    source ~/.bash_profile
     cd "$PROJECT_ROOT/docker"
     docker-compose ps comfyui-mac
 }
 
 
 view_logs() {
+    source ~/.bash_profile
     cd "$PROJECT_ROOT/docker"
     docker-compose logs -f comfyui-mac
 }
 
 
 backup() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$BACKUP_START${NC}"
     
 
@@ -269,6 +278,7 @@ backup() {
 
 
 restore() {
+    source ~/.bash_profile
     echo -e "${YELLOW}$RESTORE_START${NC}"
     
 

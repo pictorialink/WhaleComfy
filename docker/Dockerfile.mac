@@ -19,7 +19,7 @@ ENV PATH="/ComfyUI/venv/bin/:${PATH}"
 # 安装 Python 依赖
 #RUN /ComfyUI/venv/bin/pip install --upgrade pip
 RUN /ComfyUI/venv/bin/pip install "Pillow==9.5.0" "rembg==2.0.50" "clip-interrogator==0.6.0" --no-deps
-RUN /ComfyUI/venv/bin/pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+RUN /ComfyUI/venv/bin/pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu --force
 RUN /ComfyUI/venv/bin/pip install  --default-timeout=1000 --no-cache-dir -r requirements.txt
 RUN sed -i "s/torch.cuda.current_device()/'mps' if torch.backends.mps.is_available() else 'cpu'/g" comfy/model_management.py
 # 安装 decord
@@ -32,6 +32,7 @@ RUN cd /ComfyUI && \
 # 复制配置文件和脚本
 COPY scripts/ /app/scripts/
 COPY ../configs/ /app/configs/
+RUN cp /app/configs/model_management.py /ComfyUI/comfy/model_management.py
 RUN chmod +x /app/scripts/entrypoint.sh
 
 # 安装自定义节点
