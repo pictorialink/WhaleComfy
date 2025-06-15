@@ -61,8 +61,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '4'
-          memory: 8G
+          cpus: '6'
+          memory: 16G
   download_models_mac:
     image: hqtech/whalecomfy-mac:latest
     platform: linux/arm64 
