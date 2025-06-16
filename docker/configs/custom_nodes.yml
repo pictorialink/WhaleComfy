@@ -301,7 +301,14 @@ custom_nodes:
     models:
       - url: https://huggingface.co/Linaqruf/lcm-lora-sdxl-rank1/resolve/main/pytorch_lora_weights.safetensors
         path: models/loras/sdxl_LCM_lora_rank1.safetensors
-
+  - name: comfyui-4x-Ultrasharp
+    repository: 
+    version:
+    type:  Core
+    install_path: 
+    models:
+      - url: https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth
+        path: models/upscale_models/4x-UltraSharp.pth
 
 
 
