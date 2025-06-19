@@ -213,6 +213,14 @@ custom_nodes:
     models:
       - url: 
         path: 
+  - name: ComfyUI-QwenVL
+    repository: https://github.com/pictorialink/ComfyUI-QwenVL.git
+    version: 759753926264b83d6c375b6802b3e6abe8a97219
+    type: Community
+    install_path: custom_nodes/ComfyUI-QwenVL
+    models:
+      - url: https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
+        path: models/LLM/Qwen2.5-7B-Instruct
   - name: comfyui-Core-cosxl
     repository: 
     version:
