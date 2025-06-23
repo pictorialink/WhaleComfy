@@ -11,7 +11,7 @@ RUN git config --global http.lowSpeedLimit 0 && git config --global http.lowSpee
 RUN git config --global http.version HTTP/1.1
 RUN git config --global http.sslVerify false
 
-RUN git clone --branch v0.3.34  https://github.com/comfyanonymous/ComfyUI.git .
+RUN git clone --branch v0.3.41  https://github.com/comfyanonymous/ComfyUI.git .
 RUN python3 -m venv venv 
 ENV PATH="/ComfyUI/venv/bin/:${PATH}"
 
