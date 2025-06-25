@@ -317,8 +317,22 @@ custom_nodes:
     models:
       - url: https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth
         path: models/upscale_models/4x-UltraSharp.pth
-
-
+  - name: comfyui-inpaint_v26
+    repository: 
+    version:
+    type:  Core
+    install_path: 
+    models:
+      - url: https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/inpaint_v26.fooocus.patch
+        path: models/inpaint/fooocus/inpaint_v26.fooocus.pth
+  - name: comfyui-fooocus_inpaint_head
+    repository: 
+    version:
+    type:  Core
+    install_path: 
+    models:
+      - url: https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/fooocus_inpaint_head.pth
+        path: models/inpaint/fooocus/fooocus_inpaint_head.pth
 
 
 
