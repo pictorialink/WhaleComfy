@@ -215,7 +215,7 @@ custom_nodes:
         path: 
   - name: ComfyUI-QwenVL
     repository: https://github.com/pictorialink/ComfyUI-QwenVL.git
-    version: 759753926264b83d6c375b6802b3e6abe8a97219
+    version: 29f74fb5234459d127106ef5632158895ccc7b50
     type: Community
     install_path: custom_nodes/ComfyUI-QwenVL
     models:
