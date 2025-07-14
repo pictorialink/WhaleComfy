@@ -27,7 +27,7 @@ services:
       - ${CLONE_DIR}/custom_nodes:/ComfyUI/custom_nodes:rw
       - ${CLONE_DIR}/venv:/ComfyUI/venv:rw
       - ${CLONE_DIR}/workflows:/ComfyUI/user/default/workflows:rw
-    entrypoint: /ComfyUI/venv/bin/python /app/scripts/download_models.py /app/configs/custom_nodes.yml
+    entrypoint: /ComfyUI/venv/bin/python /app/scripts/models_down.py
     working_dir: /ComfyUI
     environment:
       - NVIDIA_VISIBLE_DEVICES=all

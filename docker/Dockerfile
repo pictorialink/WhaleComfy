@@ -11,7 +11,7 @@ RUN git config --global http.lowSpeedLimit 0 && git config --global http.lowSpee
 RUN git config --global http.version HTTP/1.1
 RUN git config --global http.sslVerify false
 
-RUN git clone --branch v0.3.41  https://github.com/comfyanonymous/ComfyUI.git .
+RUN git clone --branch v0.3.43  https://github.com/comfyanonymous/ComfyUI.git .
 RUN python3 -m venv venv 
 ENV PATH="/ComfyUI/venv/bin/:${PATH}"
 
@@ -24,7 +24,7 @@ COPY ../configs/ /app/configs/
 RUN chmod +x /app/scripts/entrypoint.sh
 
 
-RUN /ComfyUI/venv/bin/python /app/scripts/install_nodes.py
+RUN /ComfyUI/venv/bin/python /app/scripts/get_repo_tags.py
 
 
 EXPOSE 8188
