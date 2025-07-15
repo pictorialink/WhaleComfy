@@ -11,7 +11,7 @@ REPOS = [
     {
         'url': 'https://github.com/pictorialink/Picto-workflow.git',
         'dir': 'Picto-workflow',
-        'version': 'v1.0.0'
+        'version': 'v1.0.1'
     },
     {
         'url': 'https://github.com/pictorialink/ComfyUI-Custom-Node-Tags.git',
@@ -149,31 +149,31 @@ def main():
         tags = get_github_tags(repo_id)
         latest_tag = pick_latest_tag(tags, version)
         print(f"{repo_id:<40} {version:<20} {latest_tag}")
-#        local_dir = repo_id.split('/')[-1]
-#        target_path = os.path.join(save_dir, local_dir)
-#        if os.path.exists(target_path):
-#            print(f"{target_path} 已存在，执行 git pull 更新到 {latest_tag}")
-#            subprocess.run(['git', '-C', target_path, 'fetch', '--all'])
-#            subprocess.run(['git', '-C', target_path, 'checkout', latest_tag])
-#            subprocess.run(['git', '-C', target_path, 'pull'])
+        local_dir = repo_id.split('/')[-1]
+        target_path = os.path.join(save_dir, local_dir)
+        if os.path.exists(target_path):
+            print(f"{target_path} 已存在，执行 git pull 更新到 {latest_tag}")
+            subprocess.run(['git', '-C', target_path, 'fetch', '--all'])
+            subprocess.run(['git', '-C', target_path, 'checkout', latest_tag])
+            subprocess.run(['git', '-C', target_path, 'pull'])
             # 检查 requirements.txt 并安装
-#            requirements_file = Path(target_path) / "requirements.txt"
-#            if requirements_file.exists():
-#                print(f"检测到 {requirements_file}，正在安装依赖...")
-#                subprocess.run(
-#                    ["/ComfyUI/venv/bin/pip", "install", "-r", str(requirements_file), "--timeout", "600"],
-#                    check=True
-#                )
-#        else:
-#            subprocess.run(['git', 'clone', '--branch', latest_tag, f'https://github.com/{repo_id}', target_path])
+            requirements_file = Path(target_path) / "requirements.txt"
+            if requirements_file.exists():
+                print(f"检测到 {requirements_file}，正在安装依赖...")
+                subprocess.run(
+                    ["/ComfyUI/venv/bin/pip", "install", "-r", str(requirements_file), "--timeout", "600"],
+                    check=True
+                )
+        else:
+            subprocess.run(['git', 'clone', '--branch', latest_tag, f'https://github.com/{repo_id}', target_path])
             # 克隆后同样检查 requirements.txt 并安装
-#            requirements_file = Path(target_path) / "requirements.txt"
-#            if requirements_file.exists():
-#                print(f"检测到 {requirements_file}，正在安装依赖...")
-#                subprocess.run(
-#                    ["/ComfyUI/venv/bin/pip", "install", "-r", str(requirements_file), "--timeout", "600"],
-#                    check=True
-#                )
+            requirements_file = Path(target_path) / "requirements.txt"
+            if requirements_file.exists():
+                print(f"检测到 {requirements_file}，正在安装依赖...")
+                subprocess.run(
+                    ["/ComfyUI/venv/bin/pip", "install", "-r", str(requirements_file), "--timeout", "600"],
+                    check=True
+                )
 
 
 if __name__ == '__main__':
