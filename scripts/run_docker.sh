@@ -199,7 +199,6 @@ update() {
 
 
 start() {
-    source ~/.bash_profile
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose up -d comfyui
