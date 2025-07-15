@@ -24,8 +24,11 @@ for subdir in os.listdir(custom_nodes_dir):
         print(f"发现 models.json: {models_json_path}")
         with open(models_json_path, "r", encoding="utf-8") as f:
             models_data = json.load(f)
-        for models in models_data.values():
-            for model in models:
+        # 只处理 common 和 cuda
+        for key in ["common", "cuda"]:
+            if key not in models_data:
+                continue
+            for model in models_data[key]:
                 repo_id = model["repo_id"]
                 local_path = os.path.join(comfyui_dir, model["local_path"])
                 os.makedirs(local_path, exist_ok=True)
