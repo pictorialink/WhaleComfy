@@ -2,7 +2,9 @@ import sys
 import subprocess
 import os
 import json
+import site
 
+py_version = site.getsitepackages()[0].split('/')[-2]
 # 自动安装 huggingface_hub
 try:
     from huggingface_hub import hf_hub_download
@@ -30,7 +32,12 @@ for subdir in os.listdir(custom_nodes_dir):
                 continue
             for model in models_data[key]:
                 repo_id = model["repo_id"]
-                local_path = os.path.join(comfyui_dir, model["local_path"])
+                # 替换 local_path 中的 {PY_VERSION}
+                local_path_raw = model["local_path"]
+                if "{PY_VERSION}" in local_path_raw:
+                    local_path = os.path.join(comfyui_dir, local_path_raw.replace("{PY_VERSION}", py_version))
+                else:
+                    local_path = os.path.join(comfyui_dir, local_path_raw)
                 os.makedirs(local_path, exist_ok=True)
                 files = model.get("files")
                 if files:
