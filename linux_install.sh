@@ -60,7 +60,7 @@ if [ -d "$clone_dir/WhaleComfy" ]; then
     cd "$clone_dir/WhaleComfy" || { echo "$project_not_exist"; exit 1; }
     git pull origin main
 else
-    git clone https://github.com/pictorialink/WhaleComfy.git "$clone_dir/WhaleComfy"
+    git clone --branch v1.0.0 https://github.com/pictorialink/WhaleComfy.git "$clone_dir/WhaleComfy"
     echo "$clone_success"
 fi
 
