@@ -6,7 +6,7 @@ services:
       - ${CLONE_DIR}/models:/ComfyUI/models:rw
       - ${CLONE_DIR}/custom_nodes:/ComfyUI/custom_nodes:rw
       - ${CLONE_DIR}/venv:/ComfyUI/venv:rw
-      - ${CLONE_DIR}/workflows:/ComfyUI/user/default/workflows:rw
+      - ${CLONE_DIR}/output:/ComfyUI/output:rw
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     ports:
@@ -21,22 +21,14 @@ services:
               count: 1
               capabilities: [gpu]
   download_models_linux:
-    image: pictorial/whalecomfy:v1.0.0
+    image: pictorial/comfy-proxy:v1.0.0
     volumes:
       - ${CLONE_DIR}/models:/ComfyUI/models:rw
       - ${CLONE_DIR}/custom_nodes:/ComfyUI/custom_nodes:rw
       - ${CLONE_DIR}/venv:/ComfyUI/venv:rw
-      - ${CLONE_DIR}/workflows:/ComfyUI/user/default/workflows:rw
     entrypoint: /ComfyUI/venv/bin/python /app/scripts/models_down.py
     working_dir: /ComfyUI
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
     stop_signal: SIGKILL
-      #    detach: true
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+    restart: "no"  # 不自动重启
+    labels:
+      - "com.docker.compose.autoremove=true"
