@@ -9,7 +9,7 @@ py_version = site.getsitepackages()[0].split('/')[-2]
 try:
     from huggingface_hub import hf_hub_download
 except ImportError:
-    pip_path = "/ComfyUI/venv/bin/pip"
+    pip_path = "pip"
     subprocess.check_call([pip_path, "install", "huggingface_hub"])
     from huggingface_hub import hf_hub_download
 

@@ -25,10 +25,10 @@ services:
     volumes:
       - ${CLONE_DIR}/models:/ComfyUI/models:rw
       - ${CLONE_DIR}/custom_nodes:/ComfyUI/custom_nodes:rw
-      - ${CLONE_DIR}/venv:/ComfyUI/venv:rw
-    entrypoint: /ComfyUI/venv/bin/python /app/scripts/models_down.py
+      - ./scripts:/app/scripts:r
+    entrypoint: python /app/scripts/models_down.py
     working_dir: /ComfyUI
     stop_signal: SIGKILL
-    restart: "no"  # 不自动重启
+    restart: "no"
     labels:
       - "com.docker.compose.autoremove=true"
