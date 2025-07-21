@@ -30,10 +30,6 @@ services:
     depends_on:
       - comfyui  # 确保 comfyui 先启动
 
-networks:
-  comfy-net:
-    driver: bridge
-
   download_models_linux:
     image: pictorial/comfy-proxy:v1.0.0
     volumes:
@@ -46,3 +42,7 @@ networks:
     restart: "no"
     labels:
       - "com.docker.compose.autoremove=true"
+
+networks:
+  comfy-net:
+    driver: bridge
