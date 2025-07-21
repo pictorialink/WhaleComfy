@@ -9,10 +9,7 @@ services:
       - ${CLONE_DIR}/output:/ComfyUI/output:rw
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-    ports:
-      - ${server_port}:8188
     stop_signal: SIGKILL
-      #    detach: true
     deploy:
       resources:
         reservations:
@@ -20,6 +17,23 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    networks:
+      - comfy-net  # 连接到自定义网络
+
+  comfy-proxy:
+    image: pictorial/comfy-proxy:v1.0.0
+    stop_signal: SIGKILL
+    ports:
+      - ${server_port}:8081
+    networks:
+      - comfy-net  # 连接到同一个网络
+    depends_on:
+      - comfyui  # 确保 comfyui 先启动
+
+networks:
+  comfy-net:
+    driver: bridge
+
   download_models_linux:
     image: pictorial/comfy-proxy:v1.0.0
     volumes:
