@@ -171,6 +171,7 @@ init() {
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
         docker-compose pull comfyui
+
     fi
 
     copy_container_files
@@ -202,6 +203,7 @@ start() {
     echo -e "${YELLOW}$SERVICE_START_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose up -d comfyui
+    docker-compose up -d comfy-proxy
     if [ $? -eq 0 ]; then
         source /etc/profile
         server_url=`ip -br addr show | awk -v port="${server_port}" '$2 == "UP" && !/lo|docker|virbr|veth|br-|tun|tap/ {split($3, a, "/"); print "http://" a[1] ":" port}' || echo "http://127.0.0.1:${server_port}"`
@@ -217,6 +219,7 @@ stop() {
     echo -e "${YELLOW}$SERVICE_STOP_START${NC}"
     cd "$PROJECT_ROOT/docker"
     docker-compose down comfyui
+    docker-compose down comfy-proxy
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}$SERVICE_STOP_SUCCESS${NC}"
     else
