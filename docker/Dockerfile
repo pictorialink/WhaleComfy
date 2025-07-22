@@ -23,7 +23,7 @@ COPY scripts/ /app/scripts/
 COPY ../configs/ /app/configs/
 RUN chmod +x /app/scripts/entrypoint.sh
 
-
+RUN git clone --branch v1.0.0 https://github.com/pictorialink/Picto-workflow.git && git clone https://github.com/pictorialink/ComfyUI-Custom-Node-Tags.git
 RUN /ComfyUI/venv/bin/python /app/scripts/get_repo_tags.py
 
 
