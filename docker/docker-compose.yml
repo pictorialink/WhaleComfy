@@ -10,6 +10,8 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     stop_signal: SIGKILL
+    ports:
+      - 8188:8188
     deploy:
       resources:
         reservations:
@@ -17,16 +19,12 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-    networks:
-      - comfy-net  # 连接到自定义网络
 
   comfy-proxy:
     image: pictorial/comfy-proxy:v1.0.0
     stop_signal: SIGKILL
     ports:
-      - ${server_port}:8081
-    networks:
-      - comfy-net  # 连接到同一个网络
+      - ${server_port}:8081  # 连接到同一个网络
     depends_on:
       - comfyui  # 确保 comfyui 先启动
 
@@ -42,7 +40,3 @@ services:
     restart: "no"
     labels:
       - "com.docker.compose.autoremove=true"
-
-networks:
-  comfy-net:
-    driver: bridge

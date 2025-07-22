@@ -171,6 +171,7 @@ init() {
         echo -e "${YELLOW}$DOCKER_IMAGE_DOWNLOAD_START${NC}"
         cd "$PROJECT_ROOT/docker"
         docker-compose pull comfyui
+        docker-compose pull comfy-proxy
 
     fi
 
