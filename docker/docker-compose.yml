@@ -22,7 +22,7 @@ services:
     image: pictorial/comfy-proxy:v1.0.0
     stop_signal: SIGKILL
     ports:
-      - ${server_port}:8081  # 连接到同一个网络
+      - ${server_port}:8081
     depends_on:
       - comfyui  # 确保 comfyui 先启动
 
