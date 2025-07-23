@@ -56,8 +56,7 @@ for repo in REPOS:
 
 # 需要遍历的两个目录
 BASE_DIRS = [
-    os.path.join('Picto-workflow', 'cuda'),
-    os.path.join('Picto-workflow', 'common'),
+    'Picto-workflow'
 ]
 
 def get_github_tags(repo_id):

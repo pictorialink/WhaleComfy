@@ -39,7 +39,7 @@ if [ "$lang" == "en" ]; then
     RESTORE_START="Starting restore from backup..."
     NO_BACKUP_FOUND="No backup found"
     RESTORE_COMPLETED="Restore completed"
-    USAGE="Usage: $0 {init|build|dlmodels|update|start|stop|restart|status|logs|backup|restore}"
+    USAGE="Usage: $0 {init|build|dlmodels|update|start|stop|restart|status|logs comfyui/comfy-proxy|backup|restore}"
     OPERATION_PROMPT="Please choose an operation, default to download the image: 1) local build; 2) download the image: [1/2]: "
 else
     INIT_START="开始初始化系统..."
@@ -70,7 +70,7 @@ else
     RESTORE_START="开始恢复备份..."
     NO_BACKUP_FOUND="未找到备份"
     RESTORE_COMPLETED="恢复完成"
-    USAGE="用法: $0 {init|build|dlmodels|update|start|stop|restart|status|logs|backup|restore}"
+    USAGE="用法: $0 {init|build|dlmodels|update|start|stop|restart|status|logs comfyui/comfy-proxy|backup|restore}"
     OPERATION_PROMPT="请选择操作,默认下载远程镜像: 1) 本地构建镜像; 2) 下载远程镜像: [1/2]: "
 fi
 
@@ -244,7 +244,11 @@ check_status() {
 
 view_logs() {
     cd "$PROJECT_ROOT/docker"
-    docker-compose logs -f comfyui
+    if [ "$1" == "proxy" ]; then
+        docker-compose logs -f comfy-proxy
+    else
+        docker-compose logs -f comfyui
+    fi
 }
 
 
@@ -322,7 +326,7 @@ main() {
             check_status
             ;;
         "logs")
-            view_logs
+            view_logs "$2"
             ;;
         "backup")
             backup
