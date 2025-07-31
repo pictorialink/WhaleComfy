@@ -11,7 +11,7 @@ REPOS = [
     {
         'url': 'https://github.com/pictorialink/Picto-workflow.git',
         'dir': 'Picto-workflow',
-        'version': 'v1.0.2'
+        'version': 'v1.0.4'
     },
     {
         'url': 'https://github.com/pictorialink/ComfyUI-Custom-Node-Tags.git',
